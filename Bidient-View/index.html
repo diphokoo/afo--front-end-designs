@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Member Values</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="handlebars-v4.7.3.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+      <script id="member-data-template" type="text/x-handlebars-template">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>My portfolio - View your investments and Policies</h3>
+        </div>
+      </div>
+
+      <div class="row display-flex">
+        <div class="details-wrapper">
+          <h4 class="details-heading">Identification Details</h2>
+
+          <div class="display-flex">
+            <div class="details-input width-30">
+              <div class="input-title ">Title</div>
+              <div class="input-value" id="lblTitleNob"> {{ identificationDetails.title}} </div>
+            </div>
+      
+            <div class="details-input width-60">
+              <div class="input-title  ">FirstName</div>
+              <div class="input-value" id="lblNameNob"> {{ identificationDetails.firstName}} </div>
+            </div>
+          </div>
+
+          <div class="details-input">
+            <div class="input-title">Surname</div>
+            <div class="input-value" id="lblSurnameNob"> {{ identificationDetails.surname }} </div>
+          </div>
+    
+          <div class="details-input">
+            <div class="input-title">Date of birth</div>
+            <div class="input-value" id="lblDobNob"> {{ identificationDetails.dateOfBirth }} </div>
+          </div>
+    
+          <div class="details-input">
+            <div class="input-title">Identity document type</div>
+            <div class="input-value" id="lblIdtypeNob"> {{ identificationDetails.documentType }} </div>
+          </div>
+
+          <div class="details-input">
+            <div class="input-title">Identity number</div>
+            <div class="input-value" id="lblIdtypeNob"> {{ identificationDetails.identityNumber }} </div>
+          </div>
+    
+          <div class="details-input">
+            <div class="input-title">Gender</div>
+            <div class="input-value" id="lblGenderNob "> {{ identificationDetails.gender }} </div>
+          </div> 
+        </div>
+        
+        <div class="investments-wrapper">
+          <div class="section-wrapper">
+            <h4 class="subheading">My Savings and Investments</h4>
+
+            {{#each investmentsAndSavings}}
+
+            <div class="investments-card">
+              <div class="general-info display-flex">
+                <div class="button-wrapper">
+                    <a id="{{ externalProductId }}" 
+                    class="view-button" 
+                    onclick="togglePortfolios(this)"
+                    href="#"></a>
+                </div>
+                <p class="investment-name">{{ productName }}</p>
+                <div class="summary-wrapper">
+                  <p class="summary-total">Total</p>
+                  <p class="total-value">{{ amount }}</p>
+                </div>
+              </div>
+
+              <div id="portfolios{{ externalProductId }}" class="additional-info hidden">
+
+                {{#each portfolios}}
+
+                  <div class="fund-info {{#if isInternal}}has-link{{/if}}">
+                    <p class="fund-name">{{ portfolioName }}</p>
+                    <p class="fund-value">{{ portfolioAmount }}</p>
+                  </div>
+                
+                {{/each}}
+              </div>
+            </div>
+
+            {{/each}}
+    
+            <div class="actions-wrapper">
+              <button type="button" class="btn btn-outline-secondary action-button">
+                Add external product
+              </button>
+              <button type="button" class="btn btn-outline-secondary action-button disabled">
+                Amend external product
+              </button>
+            </div>
+          </div>
+
+          <div class="section-wrapper">
+            <h4 class="subheading">My Life and Disability Income Replacement Cover</h4>
+    
+            {{#each lifeAndDisabilityCover}}
+
+              <div class="investments-card">
+                <div class="general-info display-flex">
+                  <div class="button-wrapper">
+                    <a id="{{ externalProductId }}" 
+                      class="view-button" 
+                      onclick="togglePortfolios(this)"
+                      href="#"></a>
+                  </div>
+                  <p class="investment-name">{{ productName }}</p>
+                  <div class="summary-wrapper">
+                    <p class="summary-total">Total</p>
+                    <p class="total-value">{{ amount }}</p>
+                  </div>
+                </div>
+
+                <div id="portfolios{{ externalProductId }}" class="additional-info hidden">
+
+                  {{#each portfolios}}
+
+                    <div class="fund-info {{#if isInternal}}has-link{{/if}}">
+                      <p class="fund-name">{{ portfolioName }}</p>
+                      <p class="fund-value">{{ portfolioAmount }}</p>
+                    </div>
+                  
+                  {{/each}}
+                </div>
+              </div>
+
+            {{/each}}
+    
+            <div>
+              <p>
+                <strong>Note:</strong> Any cover above the Medical Free Cover Limit is subject to medical underwriting 
+                and is only payable is the insurer has fomrally advised you that your cover above the Free Cover
+                Limit has been accepted.
+              </p>
+            </div>
+
+            <div class="actions-wrapper">
+              <button type="button" class="btn btn-outline-secondary action-button">
+                Add external product
+              </button>
+              <button type="button" class="btn btn-outline-secondary action-button disabled">
+                Amend external product
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </script>
+
+    <div id="member-data-container">
+    </div>
+
+    <script>
+      var memberData = {
+        "identificationDetails": {
+          "title": "Mr",
+          "firstName": "Obakeng",
+          "surname": "Diphoko", 
+          "dateOfBirth": "31/10/1994",
+          "documentType": "South Afrian ID",
+          "identityNumber": "8698481739110", 
+          "gender": "Male"
+        },
+        "investmentsAndSavings": [
+          {
+            "gsProductGuid": "de1a8f9e-8752-4a8e-b49b-e76fbf996c11",
+            "externalProductId": "1469",
+            "productName": "Riretirement Savings",
+            "externalSubscriptionId": "1141015",
+            "externalSubscriptionNumber": "M00960061",
+            "amount":"90 000.00",
+            "portfolios": [
+                {
+                  "portfolioName":"Afonline Retirement Fund - Provident Section(Alexander forbes Limited)",
+                  "portfolioAmount":"90 000.00",
+                  "isInternal": true
+                }
+              ] 
+          },
+          {
+            "gsProductGuid": "de1a8f9e-8752-4a8e-b49b-e76fbf996c11",
+            "externalProductId": "1468",
+            "productName": "Additional discretionary investments",
+            "externalSubscriptionId": "1141015",
+            "externalSubscriptionNumber": "M00960061",
+            "amount":"0"
+          }
+        ],
+        "lifeAndDisabilityCover" : [
+          {
+            "gsProductGuid": "de1a8f9e-8752-4a8e-b49b-e76fbf996c11",
+            "externalProductId": "1467",
+            "productName": "My life cover",
+            "externalSubscriptionId": "1141015",
+            "externalSubscriptionNumber": "M00960061",
+            "amount":"90 000.00",
+            "portfolios": [
+                {
+                  "portfolioName":"Afonline Retirement Fund - Provident Section(Alexander forbes Limited)",
+                  "portfolioAmount":"60 000.00",
+                  "isInternal": true
+                },
+                {
+                  "portfolioName":"Liberty",
+                  "portfolioAmount":"10 000.00",
+                  "isInternal": false
+                },
+                {
+                  "portfolioName":"Liberty",
+                  "portfolioAmount":"10 000.00",
+                  "isInternal": false
+                },
+                {
+                  "portfolioName":"Liberty",
+                  "portfolioAmount":"10 000.00",
+                  "isInternal": false
+                }
+              ] 
+          },
+          {
+            "gsProductGuid": "de1a8f9e-8752-4a8e-b49b-e76fbf996c11",
+            "externalProductId": "1466",
+            "productName": "My disability income replacement",
+            "externalSubscriptionId": "1141015",
+            "externalSubscriptionNumber": "M00960061",
+            "amount":"0"
+          }
+        ]
+      };
+
+      var source = document.getElementById('member-data-template').innerHTML;
+      var template = Handlebars.compile(source);
+      var html = template(memberData);
+    
+      document.getElementById("member-data-container").innerHTML = html;
+
+      function togglePortfolios(element) {
+        if(element.classList.contains('is-active')) {
+          element.classList.remove('is-active');
+          document.getElementById('portfolios' + element.id).classList.add('hidden');
+        } else {
+          element.classList.add('is-active');
+          document.getElementById('portfolios' + element.id).classList.remove('hidden');
+        }
+      }
+    </script>
+  </body>
+</html>
